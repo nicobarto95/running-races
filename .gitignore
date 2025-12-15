@@ -1,7 +1,36 @@
+# ----------------------------------------
+# Development Tools and IDEs
+# ----------------------------------------
+# Common examples for Visual Studio Code
+.vscode/
+
+# Examples for JetBrains IDEs (PyCharm, IntelliJ)
+.idea/
+
+# ----------------------------------------
+# Local Scraper Output / Temporary Files
+# ----------------------------------------
+# Temporary files or logs
+temp/
+*.log
+
+# If your source HTML file is saved locally (uncomment if you don't want to track it)
+# input_gare.html
+
+# ----------------------------------------
+# Python Dependencies and Virtual Environment
+# ----------------------------------------
+# Virtual Environments (essential to ignore if used locally)
+.venv/
+venv/
+env/
+.env/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
 *$py.class
+*.pyc
 
 # C extensions
 *.so
