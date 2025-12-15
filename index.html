@@ -100,7 +100,7 @@
     async function loadData() {
         try {
             // Puntiamo al file JSON generato nella cartella data
-            const response = await fetch('data/gare.json');
+            const response = await fetch('data/source/races.json');
             allRaces = await response.json();
             document.getElementById('loading').style.display = 'none';
             document.getElementById('raceTable').style.display = 'table';
