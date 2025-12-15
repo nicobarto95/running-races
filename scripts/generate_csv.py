@@ -2,8 +2,8 @@ import pandas as pd
 import json
 import os
 
-DATA_FILE = 'data/gare.json'
-CSV_FILE = 'data/gare.csv'
+DATA_FILE = 'data/source/races.json'
+CSV_FILE = 'data/source/races.csv'
 
 def generate_csv():
     """Reads JSON and saves it as CSV."""

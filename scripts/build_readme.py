@@ -5,7 +5,7 @@ from datetime import datetime
 
 # --- Configurazione Path ---
 # Usiamo i percorsi relativi dalla radice del repository (dove viene eseguito)
-DATA_FILE = 'data/gare.json'
+DATA_FILE = 'data/source/races.json'
 README_FILE = 'README.md'
 
 # --- Configurazione Marcatori (Devono corrispondere a quelli nel tuo README.md) ---
