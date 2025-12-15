@@ -1,4 +1,5 @@
-# running-races
+# ⚡️ **Runners' Vault** | **Self-Updating** Running Race Database
+> The scraper that never sleeps. Fresh race data, served directly on GitHub.
 
 A small toolkit to extract, store and publish running race listings from HTML sources.
 
@@ -29,12 +30,10 @@ python -m venv .venv
 source .venv/bin/activate
 ```
 
-2. Install required packages (this project currently requires `pandas`; add more to `requirements.txt` if needed):
+2. Install required packages (this project currently requires `pandas, beautifulsoup4, lxml`):
 
 ```bash
-pip install pandas
-# or, if you plan to use a requirements file later:
-# pip install -r requirements.txt
+pip install pandas beautifulsoup4 lxml
 ```
 
 3. Prepare the source HTML
@@ -115,4 +114,3 @@ See the `LICENSE` file in the repository (if present) for license details.
 **No automatic race table inserted.**
 
 <!-- RACES END -->
-# running-races
