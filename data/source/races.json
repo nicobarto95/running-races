@@ -3,11 +3,13 @@
     "date": "2026-01-25",
     "name": "Standard Chartered Dubai Marathon",
     "city": "Dubai",
+    "country": "UAE",
     "distances": [
       "42K",
       "21K"
     ],
     "status": "Open",
+    "price": "€100 - €120",
     "major": false,
     "url": "https://www.dubaimarathon.org"
   },
@@ -15,21 +17,38 @@
     "date": "2026-02-15",
     "name": "Kyoto Marathon",
     "city": "Kyoto",
+    "country": "Japan",
     "distances": [
       "42K"
     ],
     "status": "Sold Out",
+    "price": "¥15,000",
     "major": false,
     "url": "https://www.kyoto-marathon.com"
+  },
+  {
+    "date": "2026-02-22",
+    "name": "Seville Marathon",
+    "city": "Seville",
+    "country": "Spain",
+    "distances": [
+      "42K"
+    ],
+    "status": "Open",
+    "price": "€75",
+    "major": false,
+    "url": "https://www.zurichmaratonsevilla.es"
   },
   {
     "date": "2026-03-01",
     "name": "Tokyo Marathon",
     "city": "Tokyo",
+    "country": "Japan",
     "distances": [
       "42K"
     ],
     "status": "Sold Out",
+    "price": "¥18,000",
     "major": true,
     "url": "https://www.marathon.tokyo"
   },
@@ -37,10 +56,12 @@
     "date": "2026-03-15",
     "name": "RomaOstia Half Marathon",
     "city": "Roma",
+    "country": "Italy",
     "distances": [
       "21K"
     ],
     "status": "Open",
+    "price": "€45 - €55",
     "major": false,
     "url": "https://www.romaostia.it"
   },
@@ -48,10 +69,12 @@
     "date": "2026-04-12",
     "name": "Schneider Electric Marathon de Paris",
     "city": "Parigi",
+    "country": "France",
     "distances": [
       "42K"
     ],
     "status": "Charity Entries",
+    "price": "€140 / Charity",
     "major": false,
     "url": "https://www.parismarathon.com"
   },
@@ -59,22 +82,39 @@
     "date": "2026-04-12",
     "name": "Hannover Marathon",
     "city": "Hannover",
+    "country": "Germany",
     "distances": [
       "42K",
       "21K"
     ],
     "status": "Open",
+    "price": "€90",
     "major": false,
     "url": "https://www.marathon-hannover.de/landingpage.html"
+  },
+  {
+    "date": "2026-04-13",
+    "name": "Boston Marathon",
+    "city": "Boston",
+    "country": "USA",
+    "distances": [
+      "42K"
+    ],
+    "status": "Sold Out",
+    "price": "$200 - $250",
+    "major": true,
+    "url": "https://www.baa.org"
   },
   {
     "date": "2026-04-19",
     "name": "Connemara International Marathon",
     "city": "Connemara, Galway",
+    "country": "Ireland",
     "distances": [
       "42K"
     ],
     "status": "Open",
+    "price": "€70",
     "major": false,
     "url": "https://www.connemarathon.com/"
   },
@@ -82,21 +122,38 @@
     "date": "2026-04-26",
     "name": "Maratona di Londra",
     "city": "Londra",
+    "country": "UK",
     "distances": [
       "42K"
     ],
     "status": "Sold Out",
+    "price": "£50 - £80",
     "major": true,
     "url": "https://www.tcslondonmarathon.com"
+  },
+  {
+    "date": "2026-05-03",
+    "name": "Prague Marathon",
+    "city": "Prague",
+    "country": "Czech Republic",
+    "distances": [
+      "42K"
+    ],
+    "status": "Open",
+    "price": "€100 - €130",
+    "major": false,
+    "url": "https://www.runczech.com/en"
   },
   {
     "date": "2026-06-14",
     "name": "Phnom Penh International Half Marathon",
     "city": "Phnom Penh",
+    "country": "Cambodia",
     "distances": [
       "21K"
     ],
     "status": "Open",
+    "price": "$40",
     "major": false,
     "url": "https://www.phnompenhmarathon.org"
   },
@@ -104,10 +161,12 @@
     "date": "2026-09-27",
     "name": "Baxter Lockness Marathon",
     "city": "Inverness",
+    "country": "UK",
     "distances": [
       "42K"
     ],
     "status": "Open",
+    "price": "£60",
     "major": false,
     "url": "https://lochnessmarathon.com/"
   },
@@ -115,10 +174,12 @@
     "date": "2026-09-27",
     "name": "BMW Berlin Marathon",
     "city": "Berlino",
+    "country": "Germany",
     "distances": [
       "42K"
     ],
     "status": "Sold Out",
+    "price": "€190",
     "major": true,
     "url": "https://www.bmw-berlin-marathon.com"
   },
@@ -126,22 +187,39 @@
     "date": "2026-10-10",
     "name": "Lisbon Marathon",
     "city": "Lisbona",
+    "country": "Portugal",
     "distances": [
       "42K"
     ],
     "status": "Open",
+    "price": "€70 - €90",
     "major": false,
     "url": "https://maratonaclubedeportugal.com/en/prova/edp-lisbon-marathon-2026/"
+  },
+  {
+    "date": "2026-10-11",
+    "name": "Bank of America Chicago Marathon",
+    "city": "Chicago",
+    "country": "USA",
+    "distances": [
+      "42K"
+    ],
+    "status": "Sold Out",
+    "price": "$240",
+    "major": true,
+    "url": "https://www.chicagomarathon.com"
   },
   {
     "date": "2026-10-18",
     "name": "TCS Amsterdam Marathon",
     "city": "Amsterdam",
+    "country": "Netherlands",
     "distances": [
       "42K",
       "21K"
     ],
     "status": "Open",
+    "price": "€95 - €125",
     "major": false,
     "url": "https://www.tcsamsterdammarathon.eu"
   },
@@ -149,24 +227,54 @@
     "date": "2026-10-25",
     "name": "Venice Marathon",
     "city": "Venezia",
+    "country": "Italy",
     "distances": [
       "42K",
       "21K"
     ],
     "status": "Open",
+    "price": "€70 - €100",
     "major": false,
     "url": "https://www.venicemarathon.it"
+  },
+  {
+    "date": "2026-11-01",
+    "name": "TCS New York City Marathon",
+    "city": "New York City",
+    "country": "USA",
+    "distances": [
+      "42K"
+    ],
+    "status": "Sold Out",
+    "price": "$295 - $350",
+    "major": true,
+    "url": "https://www.nycmarathon.org"
   },
   {
     "date": "2026-11-29",
     "name": "Amazing Thailand Marathon Bangkok",
     "city": "Bangkok",
+    "country": "Thailand",
     "distances": [
       "42K",
       "21K"
     ],
     "status": "Open",
+    "price": "฿1,500 - ฿2,000",
     "major": false,
     "url": "https://amazingthailandmarathon.com"
+  },
+  {
+    "date": "2026-12-06",
+    "name": "Valencia Marathon Trinidad Alfonso",
+    "city": "Valencia",
+    "country": "Spain",
+    "distances": [
+      "42K"
+    ],
+    "status": "Open",
+    "price": "€80 - €120",
+    "major": false,
+    "url": "https://www.maratonvalencia.com"
   }
 ]
