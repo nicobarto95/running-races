@@ -13,6 +13,10 @@ The table below is updated automatically every day at 04:00 UTC.
 
 This entire line, and everything between the markers, will be replaced by the Python script with the updated table and statistics. **Do not modify the content between the two markers.**
 
+``
+
+``
+
 ## 🛠️ Project Structure
 * **data/gare.json:** The single source of truth for race information.
 * **index.html:** The interactive web dashboard (for GitHub Pages).
