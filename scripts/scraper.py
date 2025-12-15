@@ -95,7 +95,7 @@ def save_data(df: pd.DataFrame):
 if __name__ == "__main__":
 
     # Esegui lo scraping
-    races_df = scrape_and_process_data(SOURCE_PATH)
+    races_df = scrape_and_process_data(RELATIVE_PATH_TO_SOURCE)
 
     if races_df is not None and not races_df.empty:
         # Se i dati sono stati estratti con successo, salvali
