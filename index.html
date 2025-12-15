@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RaceTrack Vault | World Running Calendar</title>
+    <style>
+        /* Manteniamo lo stile fighissimo che avevi, ma lo ottimizziamo */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --accent-gold: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0f2f5; padding: 20px; color: #1a202c; }
+        
+        .container { max-width: 1400px; margin: 0 auto; background: white; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); overflow: hidden; }
+        
+        .header { background: var(--primary-gradient); color: white; padding: 40px 20px; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; padding: 20px; background: #f8f9fa; border-bottom: 1px solid #edf2f7; }
+        .stat-card { background: white; padding: 15px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); text-align: center; border: 1px solid #e2e8f0; }
+        .stat-number { font-size: 1.8rem; font-weight: bold; color: #4c51bf; }
+        .stat-label { font-size: 0.75rem; color: #718096; text-transform: uppercase; letter-spacing: 1px; }
+
+        .filters { padding: 20px; display: flex; gap: 15px; flex-wrap: wrap; background: white; align-items: flex-end; }
+        .filter-group { display: flex; flex-direction: column; gap: 5px; }
+        .filter-group label { font-size: 0.75rem; font-weight: bold; color: #4a5568; }
+        select, input { padding: 10px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.9rem; }
+
+        .table-container { overflow-x: auto; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; }
+        th { background: #f8f9fa; padding: 12px; text-align: left; font-size: 0.8rem; text-transform: uppercase; color: #4a5568; border-bottom: 2px solid #edf2f7; cursor: pointer; }
+        td { padding: 15px 12px; border-bottom: 1px solid #edf2f7; font-size: 0.95rem; }
+        
+        .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+        .badge-open { background: #c6f6d5; color: #22543d; }
+        .badge-soldout { background: #fed7d7; color: #822727; }
+        .badge-major { background: var(--accent-gold); color: #744210; font-weight: 800; }
+        
+        .btn-link { display: inline-block; padding: 6px 12px; background: var(--primary-gradient); color: white; text-decoration: none; border-radius: 6px; font-size: 0.8rem; transition: transform 0.2s; }
+        .btn-link:hover { transform: translateY(-2px); }
+
+        #loading { text-align: center; padding: 50px; font-style: italic; color: #718096; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>🏃 RaceTrack Vault</h1>
+        <p>Your automated gateway to global running events</p>
+    </div>
+
+    <div class="stats" id="statsContainer">
+        <div class="stat-card"><div class="stat-number" id="stat-total">-</div><div class="stat-label">Total Races</div></div>
+        <div class="stat-card"><div class="stat-number" id="stat-majors">-</div><div class="stat-label">World Majors</div></div>
+        <div class="stat-card"><div class="stat-number" id="stat-open">-</div><div class="stat-label">Open Now</div></div>
+    </div>
+
+    <div class="filters">
+        <div class="filter-group">
+            <label>Search</label>
+            <input type="text" id="search" placeholder="City or Race name...">
+        </div>
+        <div class="filter-group">
+            <label>Distance</label>
+            <select id="f-dist">
+                <option value="all">All</option>
+                <option value="42K">Marathon</option>
+                <option value="21K">Half</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="loading">Syncing with database...</div>
+
+    <div class="table-container">
+        <table id="raceTable" style="display:none;">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Race</th>
+                    <th>Location</th>
+                    <th>Distance</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    let allRaces = [];
+
+    // IL CUORE DELLO STRATEGIA: Scarichiamo il JSON aggiornato dall'action
+    async function loadData() {
+        try {
+            // Puntiamo al file JSON generato nella cartella data
+            const response = await fetch('data/gare.json');
+            allRaces = await response.json();
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('raceTable').style.display = 'table';
+            renderTable(allRaces);
+            updateStats(allRaces);
+        } catch (e) {
+            document.getElementById('loading').innerHTML = "❌ Error loading data. Please check back later.";
+        }
+    }
+
+    function renderTable(data) {
+        const tbody = document.getElementById('tableBody');
+        tbody.innerHTML = data.map(race => `
+            <tr>
+                <td>${race.date}</td>
+                <td>
+                    <strong>${race.name}</strong>
+                    ${race.major ? '<span class="badge badge-major">MAJOR</span>' : ''}
+                </td>
+                <td>${race.city}</td>
+                <td>${race.distances.map(d => `<small>${d}</small>`).join(' ')}</td>
+                <td><span class="badge ${race.status === 'Open' ? 'badge-open' : 'badge-soldout'}">${race.status}</span></td>
+                <td><a href="${race.url}" target="_blank" class="btn-link">Register</a></td>
+            </tr>
+        `).join('');
+    }
+
+    function updateStats(data) {
+        document.getElementById('stat-total').innerText = data.length;
+        document.getElementById('stat-majors').innerText = data.filter(r => r.major).length;
+        document.getElementById('stat-open').innerText = data.filter(r => r.status === 'Open').length;
+    }
+
+    // Filtro in tempo reale
+    document.getElementById('search').addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        const filtered = allRaces.filter(r => r.name.toLowerCase().includes(term) || r.city.toLowerCase().includes(term));
+        renderTable(filtered);
+    });
+
+    window.onload = loadData;
+</script>
+
+</body>
+</html>
