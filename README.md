@@ -13,7 +13,7 @@ The table below is updated automatically every day at 04:00 UTC.
 
 This entire line, and everything between the markers, will be replaced by the Python script with the updated table and statistics. **Do not modify the content between the two markers.**
 
-``
+Start Tables
 
 | 📊 Statistiche | Valore |
 | :--- | :--- |
@@ -42,9 +42,8 @@ This entire line, and everything between the markers, will be replaced by the Py
 | 18 Oct 2026 | **TCS Amsterdam Marathon**                 | Amsterdam         | 42K, 21K   | ✅ Open            | [🌐 Sito](https://www.tcsamsterdammarathon.eu)                                    |
 | 25 Oct 2026 | **Venice Marathon**                        | Venezia           | 42K, 21K   | ✅ Open            | [🌐 Sito](https://www.venicemarathon.it)                                          |
 | 29 Nov 2026 | **Amazing Thailand Marathon Bangkok**      | Bangkok           | 42K, 21K   | ✅ Open            | [🌐 Sito](https://amazingthailandmarathon.com)                                    |
-``
 
-``
+End Tables
 
 ## 🛠️ Project Structure
 * **data/gare.json:** The single source of truth for race information.

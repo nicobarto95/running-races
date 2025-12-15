@@ -9,8 +9,8 @@ DATA_FILE = 'data/source/races.json'
 README_FILE = 'README.md'
 
 # --- Configurazione Marcatori (Devono corrispondere a quelli nel tuo README.md) ---
-START_MARKER = "``"
-END_MARKER = "``"
+START_MARKER = "Start Tables"
+END_MARKER = "End Tables"
 
 def load_data():
     """Carica i dati dal file JSON."""
