@@ -32,13 +32,13 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas beautifulsoup4 lxml html5lib
 
-      # 4. Execute scraping and generate JSON/CSV files
-      - name: 🎣 Run scraper
-        run: python scripts/scraper.py
+      # 4. Generate CSV from the JSON source (optional, but good practice)
+      - name: 💾 Generate data/gare.csv
+        run: python scripts/generate_csv.py
 
-      # 5. Update the README with the new table
-      - name: 📊 Generate Dashboard
-        run: python scripts/generate_readme.py
+      # 5. Generate and inject the table into the README
+      - name: 📊 Build README Dashboard
+        run: python scripts/build_readme.py
 
       # 6. Commit changes (if any were made)
       - name: 💾 Commit and Push changes
