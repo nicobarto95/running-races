@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendario Gare Podistiche Mondo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        .filters {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-bottom: 2px solid #e9ecef;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .filter-group label {
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #495057;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        select, input {
+            padding: 8px 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 1em;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        select:hover, input:hover {
+            border-color: #667eea;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            padding: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        
+        th {
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+        }
+        
+        th:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        th::after {
+            content: '⇅';
+            position: absolute;
+            right: 10px;
+            opacity: 0.5;
+        }
+        
+        tbody tr {
+            transition: all 0.3s;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        tbody tr:hover {
+            background: #f8f9fa;
+            transform: scale(1.002);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        td {
+            padding: 15px;
+            font-size: 0.95em;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .status-disponibile {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status-esaurito {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .status-touroperator {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status-imminente {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+        
+        .distance-tag {
+            display: inline-block;
+            padding: 4px 10px;
+            margin: 2px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 600;
+            background: #e7f3ff;
+            color: #004085;
+        }
+        
+        .major-badge {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
+            color: #000;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.75em;
+            font-weight: bold;
+            margin-left: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 30px;
+            background: #f8f9fa;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .price {
+            font-weight: 600;
+            color: #28a745;
+        }
+        
+        .btn-check {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+            margin: 4px;
+        }
+        
+        .btn-check:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.5);
+        }
+        
+        .btn-tour {
+            background: linear-gradient(135deg, #FF6B6B 0%, #C92A2A 100%);
+            box-shadow: 0 2px 8px rgba(201, 42, 42, 0.3);
+        }
+        
+        .btn-tour:hover {
+            box-shadow: 0 4px 12px rgba(201, 42, 42, 0.5);
+        }
+        
+        .links-cell {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .filters {
+                flex-direction: column;
+            }
+            
+            .filter-group {
+                width: 100%;
+            }
+            
+            select, input {
+                width: 100%;
+            }
+            
+            th, td {
+                padding: 10px;
+                font-size: 0.85em;
+            }
+            
+            .links-cell {
+                flex-direction: column;
+            }
+        }
+        
+        .legend {
+            padding: 20px 30px;
+            background: #f8f9fa;
+            border-top: 2px solid #e9ecef;
+            font-size: 0.9em;
+            color: #6c757d;
+        }
+        
+        .legend h3 {
+            margin-bottom: 10px;
+            color: #495057;
+        }
+        
+        .legend-item {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏃 Calendario Gare Podistiche Mondo 2026</h1>
+            <p>Verifica la disponibilità in tempo reale con un click sui link ufficiali</p>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalRaces">0</div>
+                <div class="stat-label">Gare Totali</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="availableRaces">0</div>
+                <div class="stat-label">Disponibili</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="majorRaces">0</div>
+                <div class="stat-label">World Majors</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="soldOutRaces">0</div>
+                <div class="stat-label">Sold Out</div>
+            </div>
+        </div>
+        
+        <div class="filters">
+            <div class="filter-group">
+                <label>Cerca</label>
+                <input type="text" id="searchInput" placeholder="Cerca città o gara...">
+            </div>
+            <div class="filter-group">
+                <label>Distanza</label>
+                <select id="distanceFilter">
+                    <option value="all">Tutte le distanze</option>
+                    <option value="42K">Maratona (42K)</option>
+                    <option value="21K">Mezza Maratona (21K)</option>
+                    <option value="10K">10K</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Disponibilità</label>
+                <select id="statusFilter">
+                    <option value="all">Tutti gli stati</option>
+                    <option value="Disponibile">✅ Disponibile</option>
+                    <option value="Tour Operator">⚠️ Solo Tour Operator</option>
+                    <option value="Sold Out">❌ Sold Out</option>
+                    <option value="Imminente">🔜 Apertura Imminente</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Mese</label>
+                <select id="monthFilter">
+                    <option value="all">Tutti i mesi</option>
+                    <option value="01">Gennaio</option>
+                    <option value="02">Febbraio</option>
+                    <option value="03">Marzo</option>
+                    <option value="04">Aprile</option>
+                    <option value="05">Maggio</option>
+                    <option value="06">Giugno</option>
+                    <option value="07">Luglio</option>
+                    <option value="08">Agosto</option>
+                    <option value="09">Settembre</option>
+                    <option value="10">Ottobre</option>
+                    <option value="11">Novembre</option>
+                    <option value="12">Dicembre</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="table-container">
+            <table id="racesTable">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0)">Data</th>
+                        <th onclick="sortTable(1)">Gara</th>
+                        <th onclick="sortTable(2)">Città</th>
+                        <th onclick="sortTable(3)">Distanze</th>
+                        <th onclick="sortTable(4)">Disponibilità</th>
+                        <th onclick="sortTable(5)">Costo Indicativo</th>
+                        <th>Verifica Disponibilità</th>
+                        <th onclick="sortTable(7)">Note</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="legend">
+            <h3>📌 Legenda</h3>
+            <div class="legend-item"><strong>🌐 Sito Ufficiale:</strong> Verifica iscrizioni dirette dall'organizzatore</div>
+            <div class="legend-item"><strong>🎫 Tour Operator:</strong> Pacchetti con pettorali garantiti (hotel + volo + iscrizione)</div>
+            <div class="legend-item"><strong>WMM:</strong> World Marathon Major - Le 7 maratone più prestigiose al mondo</div>
+            <div class="legend-item"><strong>SuperHalfs:</strong> Circuito delle mezze maratone europee più competitive</div>
+            <div class="legend-item">💡 <em>Aggiornamento: 13 Dicembre 2025 - Clicca sui link per verificare la disponibilità in tempo reale</em></div>
+        </div>
+    </div>
+
+    <script>
+        const races = [
+                { 
+                    date: '2026-01-25', 
+                    name: 'Standard Chartered Dubai Marathon', 
+                    city: 'Dubai, Emirati Arabi Uniti', 
+                    distances: ['42K', '21K'], 
+                    status: 'Open', 
+                    price: 'US$160', 
+                    notes: 'Percorso piattissimo e clima mite, una delle gare più veloci del Medio Oriente.', 
+                    major: false,
+                    registration: 'Iscrizione diretta online sul sito ufficiale, con eventuali pacchetti da tour operator.',
+                    next_ballot: 'Ballot non previsto, iscrizioni dirette finché ci sono pettorali.',
+                    links: [
+                        { label: 'Sito Ufficiale', url: 'https://www.dubaimarathon.org', type: 'official' }
+                    ]
+                },
+                { 
+                    date: '2026-02-15', 
+                    name: 'Kyoto Marathon', 
+                    city: 'Kyoto, Giappone', 
+                    distances: ['42K'], 
+                    status: 'Sold Out', 
+                    price: '¥20,000 (T.O.)', 
+                    notes: 'Maratona molto richiesta in una delle città più iconiche del Giappone. Iscrizioni chiuse con largo anticipo.', 
+                    major: false,
+                    registration: 'Iscrizione tramite lotteria sul sito ufficiale, con quota da pagare solo se estratti.',
+                    next_ballot: 'Per l’edizione 2027 è attesa una nuova lotteria simile, normalmente aperta alcuni mesi prima della gara.',
+                    links: [
+                        { label: 'Sito Ufficiale', url: 'https://www.kyoto-marathon.com', type: 'official' }
+                    ]
+                },
+                { 
+                    date: '2026-03-01', 
+                    name: 'Tokyo Marathon', 
+                    city: 'Tokyo, Giappone', 
+                    distances: ['42K'], 
+                    status: 'Sold Out', 
+                    price: '¥18,000 (T.O.)', 
+                    notes: 'World Marathon Major con accesso quasi esclusivamente via lotteria o tour operator, più canale charity RUN with HEART.', 
+                    major: true,
+                    registration: 'Ingresso tramite lotteria internazionale, charity entry con donazione minima e pacchetti di tour operator.',
+                    next_ballot: 'La lotteria per il 2027 è prevista con finestra di iscrizione dedicata, modalità analoghe a quella del 2026.',
+                    links: [
+                        { label: 'Sito Ufficiale', url: 'https://www.marathon.tokyo', type: 'official' }
+                    ]
+                },
+                { 
+                    date: '2026-03-15', 
+                    name: 'RomaOstia Half Marathon', 
+                    city: 'Roma, Italia', 
+                    distances: ['21K'], 
+                    status: 'Open', 
+                    price: '€55', 
+                    notes: 'Mezza maratona storica da Roma al mare di Ostia, molto veloce e affollata.', 
+                    major: false,
+                    registration: 'Iscrizione diretta online con diverse fasce di prezzo a scadenze crescenti.',
+                    next_ballot: 'Nessun ballot, apertura iscrizioni dirette per l’edizione 2027 dopo la gara.',
+                    links: [
+                        { label: 'Sito Ufficiale', url: 'https://www.romaostia.it', type: 'official' }
+                    ]
+                },
+                { 
+                    date: '2026-04-12', 
+                    name: 'Schneider Electric Marathon de Paris', 
+                    city: 'Parigi, Francia', 
+                    distances: ['42K'], 
+                    status: 'Charity Entries', 
+                    price: '£40 (taget £1000), £30(taget £1000)', 
+                    notes: 'Grande maratona europea con partenza sugli Champs-Élysées. Pochi mesi di anticipo consigliati.', 
+                    major: false,
+                    registration: 'Iscrizione diretta online fino a esaurimento pettorali, con possibili pacchetti da agenzie e tour operator.',
+                    next_ballot: 'Non esiste ballot; l’edizione successiva viene gestita con iscrizioni a scaglioni di prezzo.',
+                    links: [
+                        { label: 'Sito Ufficiale', url: 'https://www.parismarathon.com', type: 'official' }
+                    ]
+                },
+                { 
+                    date: '2026-04-12', 
+                    name: 'Hannover Marathon', 
+                    city: 'Hannover, Germany', 
+                    distances: ['42K', '21K'], 
+                    status: 'Open', 
+                    price: '€105 - €74', 
+                    notes: 'Corsa veloce e pianeggiante', 
+                    major: false,
+                    registration: 'Iscrizione diretta online sul sito ufficiale.',
+                    next_ballot: 'Non esiste ballot.',
+                    links: [
+                        { label: 'Sito Ufficiale', url: 'https://www.marathon-hannover.de/landingpage.html', type: 'official' },
+                        { label: 'Route', url: 'https://www.mapmyrun.com/routes/view/5360619100'}
+                    ]
+                },
+                { 
+                    date: '2026-04-19', 
+                    name: 'Connemara International Marathon', 
+                    city: 'Connemara, Galway, Ireland', 
+                    distances: ['42K'], 
+                    status: 'Open', 
+                    price: '€75', 
+                    notes: 'Scenari spettacolari. Ascesa totale 363m.', 
+                    major: false,
+                    registration: 'Iscrizione diretta online sul sito ufficiale.',
+                    next_ballot: 'Non esiste ballot.',
+                    links: [
+                        { label: 'Sito Ufficiale', url: 'https://www.connemarathon.com/', type: 'official' },
+                        { label: 'Route', url: 'https://www.mapmyrun.com/routes/view/5360619100'}
+                    ]
+                },
+                { 
+                    date: '2026-04-26', 
+                    name: 'Maratona di Londra', 
+                    city: 'Londra, Regno Unito', 
+                    distances: ['42K'], 
+                    status: 'Sold Out', 
+                    price: '£150 (T.O.)', 
+                    notes: 'Major tra le più richieste. Poche bib personali, molte tramite tour operator ufficiali.', 
+                    major: true,
+                    registration: 'Ballot pubblico per i pettorali standard, charity place con raccolta fondi e posti garantiti tramite tour operator ufficiali.',
+                    next_ballot: 'Il ballot per l’edizione 2027 apre pochi giorni dopo la gara 2026 e resta aperto circa una settimana.',
+                    links: [
+                        { label: 'Sito Ufficiale', url: 'https://www.tcslondonmarathon.com', type: 'official' }
+                    ]
+                },
+                { 
+                    date: '2026-06-14', 
+                    name: 'Phnom Penh International Half Marathon', 
+                    city: 'Phnom Penh, Cambogia', 
+                    distances: ['21K'], 
+                    status: 'Open', 
+                    price: 'US$25', 
+                    notes: 'Mezza maratona internazionale lungo il fiume Tonlé Sap, molto frequentata da runner asiatici ed europei.', 
+                    major: false,
+                    registration: 'Iscrizione diretta online o tramite partner locali, pagamento quota al momento della registrazione.',
+                    next_ballot: 'Nessuna lotteria prevista, iscrizioni dirette anche per l’edizione successiva.',
+                    links: [
+                        { label: 'Sito Ufficiale', url: 'https://www.phnompenhmarathon.org', type: 'official' }
+                    ]
+                },
+                { 
+                    date: '2026-09-27', 
+                    name: 'Baxter Lockness Marathon', 
+                    city: 'Inverness, Scottland', 
+                    distances: ['42K'], 
+                    status: 'Open', 
+                    price: '£80', 
+                    notes: 'Scenari spettacolari. IN DISCESAAA', 
+                    major: false,
+                    registration: 'Iscrizione diretta online sul sito ufficiale.',
+                    next_ballot: 'Non esiste ballot.',
+                    links: [
+                        { label: 'Sito Ufficiale', url: 'https://lochnessmarathon.com/', type: 'official' }
+                    ]
+                },
+                { 
+                    date: '2026-09-27', 
+                    name: 'BMW Berlin Marathon', 
+                    city: 'Berlino, Germania', 
+                    distances: ['42K'], 
+                    status: 'Sold Out', 
+                    price: '€200 (T.O.)', 
+                    notes: 'Percorso velocissimo, posti esauriti in poche ore. Accesso tramite lottery, tour operator e charity.', 
+                    major: true,
+                    registration: 'Registrazione alla lottery sul sito ufficiale, con opzioni per singoli, team e tempi di qualifica, oltre a tour operator e charity.',
+                    next_ballot: 'La lottery per il 2027 si apre in autunno 2026 e dura alcune settimane, con esito comunicato via email.',
+                    links: [
+                        { label: 'Sito Ufficiale', url: 'https://www.bmw-berlin-marathon.com', type: 'official' }
+                    ]
+                },
+                { 
+                    date: '2026-10-18', 
+                    name: 'TCS Amsterdam Marathon', 
+                    city: 'Amsterdam, Paesi Bassi', 
+                    distances: ['42K', '21K'], 
+                    status: 'Open', 
+                    price: '€120 (T.O.)', 
+                    notes: 'Arrivo nello Stadio Olimpico, percorso veloce e molto partecipato.', 
+                    major: false,
+                    registration: 'Iscrizione diretta online dal 20/12/2025.',
+                    next_ballot: 'Non è previsto ballot.',
+                    links: [
+                        { label: 'Sito Ufficiale', url: 'https://www.tcsamsterdammarathon.eu', type: 'official' }
+                    ]
+                },
+                { 
+                    date: '2026-10-10', 
+                    name: 'Lisbon Marathon', 
+                    city: 'Lisbon, Portugal', 
+                    distances: ['42K'], 
+                    status: 'Open', 
+                    price: '€70', 
+                    notes: 'Percorso principalmente sulla costa.', 
+                    major: false,
+                    registration: 'Iscrizione diretta online sul sito ufficiale.',
+                    next_ballot: 'Non esiste ballot.',
+                    links: [
+                        { label: 'Sito Ufficiale', url: 'https://maratonaclubedeportugal.com/en/prova/edp-lisbon-marathon-2026/', type: 'official' }
+                    ]
+                },
+                { 
+                    date: '2026-10-25', 
+                    name: 'Venice Marathon', 
+                    city: 'Venezia, Italia', 
+                    distances: ['42K', '21K'], 
+                    status: 'Open', 
+                    price: '€120 (T.O.)', 
+                    notes: 'Arrivo scenografico a Venezia, percorso pianeggiante lungo la Riviera del Brenta.', 
+                    major: false,
+                    registration: 'Iscrizione diretta online con numero chiuso di partecipanti e fasce di prezzo crescenti.',
+                    next_ballot: 'Nessun ballot, solo iscrizioni dirette per l’edizione successiva.',
+                    links: [
+                        { label: 'Sito Ufficiale', url: 'https://www.venicemarathon.it', type: 'official' }
+                    ]
+                },
+                { 
+                    date: '2026-11-29', 
+                    name: 'Amazing Thailand Marathon Bangkok', 
+                    city: 'Bangkok, Thailandia', 
+                    distances: ['42K', '21K'], 
+                    status: 'Open', 
+                    price: 'US$120', 
+                    notes: 'Grande evento nel cuore di Bangkok, con partenza centrale e chiusura di molte arterie principali.', 
+                    major: false,
+                    registration: 'Iscrizione diretta online sul sito ufficiale, spesso con codici promo e pacchetti turistici dedicati.',
+                    next_ballot: 'Non esiste ballot; anche per il 2027 le iscrizioni sono dirette fino a esaurimento pettorali.',
+                    links: [
+                        { label: 'Sito Ufficiale', url: 'https://amazingthailandmarathon.com', type: 'official' }
+                    ]
+                }
+            ]
+        ;
+
+
+        let sortDirection = true;
+        let currentData = [...races];
+
+        function renderTable(data) {
+            const tbody = document.getElementById('tableBody');
+            tbody.innerHTML = '';
+            
+            data.forEach(race => {
+                const row = document.createElement('tr');
+                
+                const dateObj = new Date(race.date);
+                const formattedDate = dateObj.toLocaleDateString('it-IT', { 
+                    day: '2-digit', 
+                    month: '2-digit', 
+                    year: 'numeric' 
+                });
+                
+                const statusClass = race.status.toLowerCase().replace(' ', '-');
+                const distanceTags = race.distances.map(d => 
+                    `<span class="distance-tag">${d}</span>`
+                ).join('');
+                
+                const majorBadge = race.major ? '<span class="major-badge">WMM</span>' : '';
+                
+                const linksHtml = race.links.map(link => {
+                    const btnClass = link.type === 'tour' ? 'btn-check btn-tour' : 'btn-check';
+                    const icon = link.type === 'tour' ? '🎫' : '🌐';
+                    return `<a href="${link.url}" target="_blank" rel="noopener noreferrer" class="${btnClass}">${icon} ${link.label}</a>`;
+                }).join('');
+                
+                row.innerHTML = `
+                    <td>${formattedDate}</td>
+                    <td><strong>${race.name}</strong>${majorBadge}</td>
+                    <td>${race.city}</td>
+                    <td>${distanceTags}</td>
+                    <td><span class="status-badge status-${statusClass}">${race.status}</span></td>
+                    <td class="price">${race.price}</td>
+                    <td><div class="links-cell">${linksHtml}</div></td>
+                    <td style="font-size: 0.85em; color: #6c757d;">${race.notes}</td>
+                `;
+                
+                tbody.appendChild(row);
+            });
+            
+            updateStats(data);
+        }
+
+        function updateStats(data) {
+            document.getElementById('totalRaces').textContent = data.length;
+            document.getElementById('availableRaces').textContent = 
+                data.filter(r => r.status === 'Disponibile').length;
+            document.getElementById('majorRaces').textContent = 
+                data.filter(r => r.major).length;
+            document.getElementById('soldOutRaces').textContent = 
+                data.filter(r => r.status === 'Sold Out').length;
+        }
+
+        function filterTable() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const distance = document.getElementById('distanceFilter').value;
+            const status = document.getElementById('statusFilter').value;
+            const month = document.getElementById('monthFilter').value;
+            
+            currentData = races.filter(race => {
+                const matchSearch = race.name.toLowerCase().includes(search) || 
+                                  race.city.toLowerCase().includes(search);
+                const matchDistance = distance === 'all' || race.distances.includes(distance);
+                const matchStatus = status === 'all' || race.status === status;
+                const matchMonth = month === 'all' || race.date.substring(5, 7) === month;
+                
+                return matchSearch && matchDistance && matchStatus && matchMonth;
+            });
+            
+            renderTable(currentData);
+        }
+
+        function sortTable(columnIndex) {
+            sortDirection = !sortDirection;
+            
+            currentData.sort((a, b) => {
+                let aVal, bVal;
+                
+                switch(columnIndex) {
+                    case 0: // Data
+                        aVal = a.date;
+                        bVal = b.date;
+                        break;
+                    case 1: // Nome
+                        aVal = a.name.toLowerCase();
+                        bVal = b.name.toLowerCase();
+                        break;
+                    case 2: // Città
+                        aVal = a.city.toLowerCase();
+                        bVal = b.city.toLowerCase();
+                        break;
+                    case 4: // Status
+                        aVal = a.status;
+                        bVal = b.status;
+                        break;
+                    case 5: // Prezzo
+                        aVal = parseFloat(a.price.replace(/[^0-9.]/g, '')) || 0;
+                        bVal = parseFloat(b.price.replace(/[^0-9.]/g, '')) || 0;
+                        break;
+                    case 7: // Note
+                        aVal = a.notes.toLowerCase();
+                        bVal = b.notes.toLowerCase();
+                        break;
+                    default:
+                        return 0;
+                }
+                
+                if (aVal < bVal) return sortDirection ? -1 : 1;
+                if (aVal > bVal) return sortDirection ? 1 : -1;
+                return 0;
+            });
+            
+            renderTable(currentData);
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', filterTable);
+        document.getElementById('distanceFilter').addEventListener('change', filterTable);
+        document.getElementById('statusFilter').addEventListener('change', filterTable);
+        document.getElementById('monthFilter').addEventListener('change', filterTable);
+
+        // Inizializza
+        renderTable(races);
+    </script>
+</body>
