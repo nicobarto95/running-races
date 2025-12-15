@@ -1,6 +1,7 @@
 import pandas as pd
 from datetime import datetime
 import os
+from io import StringIO
 
 # --- Configurazione ---
 # Sostituisci questo con l'URL effettivo o il percorso del tuo file HTML
@@ -17,7 +18,12 @@ def scrape_and_process_data(source_path):
 
         # Pandas cerca automaticamente le tabelle <table> nel codice HTML
         # e le restituisce come una lista di DataFrame.
-        tables = pd.read_html(source_path)
+        if source_path.startswith(('http://', 'https://')):
+            tables = pd.read_html(source_path)
+        else:
+            with open(source_path, 'r', encoding='utf-8') as f:
+                html_string = f.read()
+            tables = pd.read_html(StringIO(html_string))
 
         if not tables:
             print("Nessuna tabella trovata nella sorgente HTML.")
