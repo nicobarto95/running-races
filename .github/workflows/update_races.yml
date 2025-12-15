@@ -25,8 +25,6 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-          # Optimizes execution time by caching the dependencies
-          cache-dependency-path: .github/workflows/update_races.yml
 
       # 3. Install dependencies
       - name: 📦 Install dependencies
