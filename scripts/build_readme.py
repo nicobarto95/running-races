@@ -11,6 +11,8 @@ README_FILE = 'README.md'
 START_MARKER = "Start Tables"
 END_MARKER = "End Tables"
 
+MANDATORY_FIELDS = ['date', 'name', 'city', 'country', 'distances', 'status', 'major', 'url', 'price']
+
 def format_date(date_str):
     if not date_str:
         return ""
@@ -24,14 +26,35 @@ def load_data():
     """Loads data from the JSON file."""
     try:
         with open(DATA_FILE, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-        return pd.DataFrame(data)
+            raw_data = json.load(f)
     except FileNotFoundError:
         print(f"❌ Error: Data file not found at {DATA_FILE}. Please ensure it exists.")
         return None
     except json.JSONDecodeError as e:
         print(f"❌ JSON parsing error in {DATA_FILE}: {e}")
         return None
+    
+    valid_races = []
+    
+    # NEW: Data Validation Loop
+    for i, race in enumerate(raw_data):
+        is_valid = True
+        
+        # Check if all mandatory fields are present
+        for field in MANDATORY_FIELDS:
+            if field not in race:
+                print(f"⚠️ Warning: Race #{i+1} ('{race.get('name', 'UNKNOWN')}') is missing the mandatory field: '{field}'. Skipping record.")
+                is_valid = False
+                break
+        
+        if is_valid:
+            valid_races.append(race)
+            
+    if not valid_races:
+        print("❌ Error: No valid race records found after validation.")
+        return pd.DataFrame() # Returns an empty DataFrame instead of None to prevent crash
+
+    return pd.DataFrame(valid_races)
 
 def generate_markdown_table(df):
     """Generates the Markdown table and statistics."""
