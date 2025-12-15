@@ -4,7 +4,7 @@ import os
 
 # --- Configurazione ---
 # Sostituisci questo con l'URL effettivo o il percorso del tuo file HTML
-SOURCE_PATH = './data/source/gare-podistiche-mondo.html' # Se il tuo HTML è un file locale
+SOURCE_PATH = '../data/source/gare-podistiche-mondo.html' # Se il tuo HTML è un file locale
 # SOURCE_PATH = 'https://www.esempio.com/pagina-gare.html' # Se è un URL
 OUTPUT_DIR = 'data'
 
