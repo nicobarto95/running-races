@@ -2,20 +2,29 @@ import pandas as pd
 from datetime import datetime
 import os
 from io import StringIO
+import sys 
+from pathlib import Path
 
 # --- Configurazione ---
-# Sostituisci questo con l'URL effettivo o il percorso del tuo file HTML
-SOURCE_PATH = '../data/source/gare-podistiche-mondo.html' # Se il tuo HTML è un file locale
-# SOURCE_PATH = 'https://www.esempio.com/pagina-gare.html' # Se è un URL
+# Definiamo il percorso relativo che cercheremo
+RELATIVE_PATH_TO_SOURCE = 'data/source/gare-podistiche-mondo.html' 
 OUTPUT_DIR = 'data'
 
 def scrape_and_process_data(source_path):
     """
     Estrae i dati delle tabelle da una sorgente HTML (file o URL) e li pulisce.
     """
+    REPO_ROOT = Path(__file__).resolve().parent.parent
+    SOURCE_PATH = REPO_ROOT / RELATIVE_PATH_TO_SOURCE
+    source_path_str = str(SOURCE_PATH)
+
     try:
         print(f"Tentativo di leggere la sorgente da: {source_path}")
 
+        if not os.path.exists(source_path_str):
+             print(f"ERRORE: File non trovato nel percorso assoluto: {source_path_str}")
+             return None
+        
         # Pandas cerca automaticamente le tabelle <table> nel codice HTML
         # e le restituisce come una lista di DataFrame.
         if source_path.startswith(('http://', 'https://')):
