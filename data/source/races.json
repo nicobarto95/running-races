@@ -27,14 +27,14 @@
     "url": "https://www.kyoto-marathon.com"
   },
   {
-    "date": "2026-02-22",
+    "date": "2026-02-15",
     "name": "Seville Marathon",
     "city": "Seville",
     "country": "Spain",
     "distances": [
       "42K"
     ],
-    "status": "Open",
+    "status": "Sold Out",
     "price": "€75",
     "major": false,
     "url": "https://www.zurichmaratonsevilla.es"
@@ -61,7 +61,7 @@
       "21K"
     ],
     "status": "Open",
-    "price": "€45 - €55",
+    "price": "€40",
     "major": false,
     "url": "https://www.romaostia.it"
   },
@@ -74,7 +74,7 @@
       "42K"
     ],
     "status": "Charity Entries",
-    "price": "€140 / Charity",
+    "price": "Charity",
     "major": false,
     "url": "https://www.parismarathon.com"
   },
@@ -127,9 +127,22 @@
       "42K"
     ],
     "status": "Sold Out",
-    "price": "£50 - £80",
+    "price": "£80",
     "major": true,
     "url": "https://www.tcslondonmarathon.com"
+  },
+  {
+    "date": "2026-05-03",
+    "name": "ColleMar-athon",
+    "city": "Fano",
+    "country": "Italy",
+    "distances": [
+      "42K"
+    ],
+    "status": "Open",
+    "price": "€30",
+    "major": false,
+    "url": "https://www.collemar-athon.com/"
   },
   {
     "date": "2026-05-03",
@@ -140,7 +153,7 @@
       "42K"
     ],
     "status": "Open",
-    "price": "€100 - €130",
+    "price": "€120 (2,900.00 Kč)",
     "major": false,
     "url": "https://www.runczech.com/en"
   },
