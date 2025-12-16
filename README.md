@@ -22,7 +22,7 @@ Start Tables
 | World Majors | **6** |
 
 ***
-* Last automatic update: **2025-12-16 11:23:01 UTC**
+* Last automatic update: **2025-12-16 11:26:00 UTC**
 
 
 | Date        | Race                                       | city              | Country        | Distances   | Price              | Status            | Link                                                                             |
@@ -49,6 +49,8 @@ Start Tables
 | 01 Nov 2026 | **TCS New York City Marathon** 🏆 WMM       | New York City     | USA            | 42K         | $295 - $350        | ❌ Sold Out        | [🌐 Sito](https://www.nycmarathon.org)                                            |
 | 29 Nov 2026 | **Amazing Thailand Marathon Bangkok**      | Bangkok           | Thailand       | 42K, 21K    | ฿1,500 - ฿2,000    | ✅ Open            | [🌐 Sito](https://amazingthailandmarathon.com)                                    |
 | 06 Dec 2026 | **Valencia Marathon Trinidad Alfonso**     | Valencia          | Spain          | 42K         | €80 - €120         | ✅ Open            | [🌐 Sito](https://www.maratonvalencia.com)                                        |
+
+
 End Tables
 
 ## 🛠️ Project Structure
