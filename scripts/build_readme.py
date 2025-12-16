@@ -80,7 +80,7 @@ def generate_markdown_table(df):
     df['Link'] = df['url'].apply(lambda x: f"[🌐 Sito]({x})")
 
     # Seleziona e rinomina le colonne finali
-    df_final = df[['Date', 'Race', 'City', 'country', 'Distances', 'price', 'Status', 'Link']].copy()
+    df_final = df[['Date', 'Race', 'city', 'country', 'Distances', 'price', 'Status', 'Link']].copy()
     df_final.rename(columns={
         'country': 'Country',
         'price': 'Price'
