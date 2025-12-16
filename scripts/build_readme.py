@@ -105,7 +105,7 @@ def generate_markdown_table(df):
     # Convert DataFrame to Markdown table
     markdown_table = df_final.to_markdown(index=False)
     
-    return f"{stats}\n\n{markdown_table}"
+    return f"{stats}\n\n{markdown_table}\n\n"
 
 
 def update_readme(new_content):
