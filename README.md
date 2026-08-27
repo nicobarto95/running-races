@@ -22,7 +22,7 @@ Start Tables
 | World Majors | **6** |
 
 ***
-* Last automatic update: **2026-08-26 04:39:57 UTC**
+* Last automatic update: **2026-08-27 15:01:33 UTC**
 
 
 | Date        | Race                                       | city              | Country        | Distances   | Price              | Status            | Link                                                                             |
